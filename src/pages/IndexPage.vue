@@ -6,7 +6,7 @@
           v-model="tempData.name"
           label="姓名"
           lazy-rules
-          :rules="[(val) => !!val || '欄位不得空白']"
+          :rules="[(val:string) => !!val || '欄位不得空白']"
         />
         <q-input
           v-model="tempData.age"
@@ -14,8 +14,8 @@
           type="number"
           lazy-rules
           :rules="[
-            (val) => !!val || '欄位不得空白',
-            (val) => /^\d+$/.test(val) || '僅限輸入正整數',
+            (val:any) => !!val || '欄位不得空白',
+            (val:string) => /^\d+$/.test(val) || '僅限輸入正整數',
           ]"
         />
         <q-btn color="primary" class="q-mt-md" @click="handleSubmit">
@@ -171,6 +171,7 @@ async function fetchData() {
     blockData.value = response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
+    alert('無法取得資料，請稍後再試。');
   }
 }
 
@@ -208,6 +209,7 @@ async function handleSubmit() {
       resetForm();
     } catch (error) {
       console.error('Error submitting data:', error);
+      alert('無法提交資料，請稍後再試。');
     }
   }
 }
@@ -247,6 +249,7 @@ async function confirmDelete() {
       confirmDialogVisible.value = false;
     } catch (error) {
       console.error('Error deleting data:', error);
+      alert('無法刪除資料，請稍後再試。');
     }
   }
 }
